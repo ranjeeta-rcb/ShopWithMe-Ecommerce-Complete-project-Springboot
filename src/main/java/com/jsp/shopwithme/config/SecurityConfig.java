@@ -36,8 +36,8 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain chain(HttpSecurity httpSecurity) {
-		return httpSecurity.httpBasic(Customizer.withDefaults())
-				.csrf(x->x.disable())
+		return httpSecurity
+				.csrf(x->x.disable())  //CSRF is disabled because it will not  allows postrequest
 				.authorizeHttpRequests(x -> x.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 				.sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
