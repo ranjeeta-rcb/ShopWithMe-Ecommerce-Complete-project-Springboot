@@ -2,7 +2,7 @@
 
 Paths to check in postman
 Day-4
-1.Login - auth/login method:post need to send email and password , it will create Unique token
+1 Login - auth/login method:post need to send email and password , it will create Unique token.
 Day-5
 2.View profile i.e me - auth/me method: GET, select Authorization and select berear token and enter the generated token and send
 3.Update password: auth/password method:PATCH  need to send in body select raw-json send old and new password 
