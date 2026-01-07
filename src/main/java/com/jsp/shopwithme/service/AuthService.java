@@ -2,7 +2,7 @@ package com.jsp.shopwithme.service;
 
 import java.util.Map;
 
-import com.jsp.shopwithme.dto.LoginDto;
+import com.jsp.shopwithme.dto.MerchantDto;
 
 public interface AuthService {
 
@@ -11,5 +11,9 @@ public interface AuthService {
 	Map<String, Object> viewUser(String email);
 
 	Map<String, Object> updatePassword(String email, String oldPassword, String newPassword);
+
+	Map<String, Object> registerMerchant(MerchantDto merchantDto);
+
+	 
 
 }
