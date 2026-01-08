@@ -9,4 +9,5 @@ Day-5
 Day-6
 4. Merchant registration: auth/merchant/register, method: post and select body and write the name,email,password,email,address,gstNo which are there in MerchantDto and send and in email send temp email which generates OTP , for temporwary storing the otp we used REDIS
 Day-7
-5.
+5. auth/merchant/otp  -->to verify otp
+6. auth/merchant/resend/email(which used to get otp)  -->to resend the otp after the expired of 1st otp
