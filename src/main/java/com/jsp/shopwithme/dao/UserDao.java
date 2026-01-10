@@ -2,8 +2,10 @@ package com.jsp.shopwithme.dao;
 
 import org.springframework.stereotype.Repository;
 
+import com.jsp.shopwithme.entity.Customer;
 import com.jsp.shopwithme.entity.Merchant;
 import com.jsp.shopwithme.entity.User;
+import com.jsp.shopwithme.repository.CustomerRepository;
 import com.jsp.shopwithme.repository.MerchantRepository;
 import com.jsp.shopwithme.repository.UserRepository;
 
@@ -15,6 +17,7 @@ public class UserDao {
 
 	private final UserRepository userRepository;
 	private final MerchantRepository merchantRepository;
+	private final CustomerRepository customerRepository;
 	
 	public boolean checkEmailAndMobieDuplicate(String email, Long mobile) {
 		return userRepository.existsByEmailOrMobile(email, mobile);
@@ -33,4 +36,7 @@ public class UserDao {
 		merchantRepository.save(merchant);
 	}
 	
+	public void save(Customer customer) {
+		customerRepository.save(customer);
+	}
 }

@@ -2,10 +2,9 @@ package com.jsp.shopwithme.service;
 
 import java.util.Map;
 
+import com.jsp.shopwithme.dto.CustomerDto;
 import com.jsp.shopwithme.dto.MerchantDto;
 import com.jsp.shopwithme.dto.OtpDto;
-
-import jakarta.validation.Valid;
 
 public interface AuthService {
 
@@ -17,9 +16,15 @@ public interface AuthService {
 
 	Map<String, Object> registerMerchant(MerchantDto merchantDto);
 
-	Map<String, Object> resendOtp(String email);
+	Map<String, Object> resendMerchantOtp(String email);
 
-	Map<String, Object> verifyOtp(@Valid OtpDto dto);
+	Map<String, Object> verifyMerchantOtp(OtpDto dto);
+	
+	Map<String, Object> registerCustomer(CustomerDto customerDto);
+	
+	Map<String, Object> verifyCustomerOtp(OtpDto dto);
+
+	Map<String, Object> resendCustomerOtp(String email);
 
 	 
 
