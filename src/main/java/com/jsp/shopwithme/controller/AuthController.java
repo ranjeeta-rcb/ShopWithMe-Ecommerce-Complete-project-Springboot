@@ -63,8 +63,7 @@ public class AuthController {
 	
 	@PatchMapping("/merchant/otp")
 	@ResponseStatus(HttpStatus.OK)
-	public Map<String, Object> verifyOtp(@Valid
-			@RequestBody OtpDto dto){
+	public Map<String, Object> verifyOtp(@Valid @RequestBody OtpDto dto) {
 		return authService.verifyMerchantOtp(dto);
 	}
 	
