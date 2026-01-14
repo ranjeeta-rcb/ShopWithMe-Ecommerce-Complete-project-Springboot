@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.jsp.shopwithme.dao.UserDao;
 import com.jsp.shopwithme.entity.Customer;
 import com.jsp.shopwithme.entity.Merchant;
+import com.jsp.shopwithme.entity.User;
+import com.jsp.shopwithme.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminServiceImpl implements AdminService {
 
 	private final UserDao userDao;
+	private final UserMapper userMapper;
 
 	@Override
 	public Map<String, Object> getAllMerchants() {
@@ -27,6 +30,22 @@ public class AdminServiceImpl implements AdminService {
 	public Map<String, Object> getAllCustomers() {
 		List<Customer> customers = userDao.getAllCustomers();
 		return Map.of("message", "Customer Records Found", "customers", customers);
+	}
+	
+	@Override
+	public Map<String, Object> blockUser(Integer id) {
+		User user = userDao.findById(id);
+		user.setActive(false);
+		userDao.save(user);
+		return Map.of("message","Blocked Success","user",userMapper.toUserDto(user));
+	}
+
+	@Override
+	public Map<String, Object> unblockUser(Integer id) {
+		User user = userDao.findById(id);
+		user.setActive(true);
+		userDao.save(user);
+		return Map.of("message","Un-Blocked Success","user",userMapper.toUserDto(user));
 	}
 
 }

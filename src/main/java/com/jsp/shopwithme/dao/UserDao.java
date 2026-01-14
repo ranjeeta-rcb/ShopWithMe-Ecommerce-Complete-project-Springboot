@@ -28,7 +28,8 @@ public class UserDao {
 	
 
 	public User findByEmail(String email) {
-		return userRepository.findByEmail(email).orElseThrow();
+		return userRepository.findByEmail(email)
+				.orElseThrow(() -> new NoSuchElementException("No User with Email: " + email));
 	}
 
 	public void save(User user) {
@@ -56,4 +57,15 @@ public class UserDao {
 			throw new NoSuchElementException("No Customer Records Found");
 		return customers;
 	}
+	
+	public User findById(Integer id) {
+		 
+		return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No User with Id: " + id));
+	}
+
+	public Merchant getMerchantByEmail(String email) {
+		User user = findByEmail(email);
+		return merchantRepository.findByUser(user)
+				.orElseThrow(() -> new NoSuchElementException("No User with Email: " + email));
+}
 }

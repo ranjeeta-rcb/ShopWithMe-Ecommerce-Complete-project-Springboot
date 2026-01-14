@@ -1,12 +1,16 @@
 package com.jsp.shopwithme.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.jsp.shopwithme.dto.CustomerDto;
 import com.jsp.shopwithme.dto.MerchantDto;
 import com.jsp.shopwithme.dto.UserDto;
+import com.jsp.shopwithme.entity.Customer;
 import com.jsp.shopwithme.entity.Merchant;
 import com.jsp.shopwithme.entity.User;
 
@@ -35,5 +39,27 @@ public abstract class UserMapper {
 	@Mapping(target = "mobile",expression = "java(merchant.getUser().getMobile())")
 	public abstract MerchantDto toMerchantDto(Merchant merchant);
 
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "username", source = "name")
+	@Mapping(target = "role", expression = "java(com.jsp.shopwithme.enums.UserRole.CUSTOMER)")
+	@Mapping(target = "active", expression = "java(true)")
+	@Mapping(target = "password", expression = "java(passwordEncoder.encode(customerDto.getPassword()))")
+	public abstract User toUserEntity(CustomerDto customerDto);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "user", source = "user")
+	public abstract Customer toCustomerEntity(CustomerDto customerDto, User user);
+
+	@Mapping(target = "password", constant = "**********")
+	@Mapping(target = "email", expression = "java(customer.getUser().getEmail())")
+	@Mapping(target = "mobile", expression = "java(customer.getUser().getMobile())")
+	@Mapping(target = "id", expression = "java((long)(int)customer.getUser().getId())")
+	@Mapping(target = "status", expression = "java(customer.getUser().isActive()?\"Active\":\"BLOCKED\")")
+	public abstract CustomerDto toCustomerDto(Customer customer);
+
+	public abstract List<MerchantDto> toMerchantDtoList(List<Merchant> merchants);
+
+	public abstract List<CustomerDto> toCustomerDtoList(List<Customer> customers);
 
 }
