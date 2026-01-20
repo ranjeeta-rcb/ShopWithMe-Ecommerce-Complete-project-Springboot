@@ -147,7 +147,7 @@ public class AuthServiceImpl implements AuthService {
 			User user = new User(null, customerDto.getName(), customerDto.getEmail(), customerDto.getMobile(),
 					passwordEncoder.encode(customerDto.getPassword()), UserRole.USER, true);
 			userDao.save(user);
-			Customer customer=new Customer(null, customerDto.getName(), customerDto.getAddress(), user);
+			Customer customer = userMapper.toCustomerEntity(customerDto, user);
 			userDao.save(customer);
 			return Map.of("message", "Account Created Success", "user", customer);
 		} else {

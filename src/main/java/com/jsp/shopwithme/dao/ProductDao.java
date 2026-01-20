@@ -8,8 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import com.jsp.shopwithme.entity.Item;
 import com.jsp.shopwithme.entity.Merchant;
 import com.jsp.shopwithme.entity.Product;
+import com.jsp.shopwithme.repository.ItemRepository;
 import com.jsp.shopwithme.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductDao {
 	private final ProductRepository productRepository;
+	private final ItemRepository itemRepository;
 
 	public void save(Product product) {
 		productRepository.save(product);
@@ -72,7 +75,7 @@ public class ProductDao {
 				.getContent();
 		if (products.isEmpty())
 			throw new NoSuchElementException("No Products Found with Name: " + name);
-		System.out.println(products);
+		 
 		return products;
 	}
 
@@ -98,4 +101,12 @@ public class ProductDao {
 		return products;
 	}
 	
+	public void saveItem(Item item) {
+		itemRepository.save(item);
+	}
+
+	public void deleteItem(Item item) {
+		System.err.println("----------"+item.getId()+"-----------");
+		itemRepository.deleteById(item.getId());
+	}
 }
