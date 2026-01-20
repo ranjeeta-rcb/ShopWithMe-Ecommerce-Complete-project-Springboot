@@ -38,7 +38,8 @@ public class SecurityConfig {
 		return httpSecurity
 				.csrf(x->x.disable())  //CSRF is disabled because it will not  allows postrequest
 				
-				.authorizeHttpRequests(x -> x.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests(x -> x.requestMatchers("/auth/**").permitAll()
+						.requestMatchers("/customers/products").permitAll().anyRequest().authenticated())
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 				.sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
 	}
